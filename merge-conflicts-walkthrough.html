@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merge Conflicts Walkthrough</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      margin: 40px;
+      color: #111;
+    }
+    h1, h2 {
+      margin-bottom: 0.3em;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    h2 {
+      font-size: 18px;
+      margin-top: 24px;
+    }
+    p, li {
+      font-size: 12px;
+    }
+    code, pre {
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+    }
+    pre {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      padding: 10px;
+      white-space: pre-wrap;
+    }
+    ul, ol {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Merge Conflicts Walkthrough</h1>
+  <p>
+    This exercise is designed to help both teammates practice merging branches and resolving conflicts in a realistic way.
+    Your goal is not to guess which side is “correct”, but to understand what each branch changed and produce one clean final result.
+  </p>
+
+  <h2>Workflow Goal</h2>
+  <p>
+    The aim of this version of the exercise is for both students to experience merge conflicts, not only the person who merges second into
+    <code>main</code>.
+  </p>
+  <p>
+    To do that, each student will merge the other student's branch into their own working branch and resolve conflicts there.
+  </p>
+
+  <h2>Starting Point</h2>
+  <p>Both students should start from the same clean base on <code>main</code>:</p>
+  <pre>git checkout main
+git pull</pre>
+
+  <p>Then each student checks out their assigned branch:</p>
+  <ul>
+    <li>Student A works on <code>conflicts-nature</code></li>
+    <li>Student B works on <code>conflicts-desert</code></li>
+  </ul>
+
+  <h2>Commands To Run</h2>
+  <p><strong>Student A</strong>:</p>
+  <pre>git checkout conflicts-nature
+git merge conflicts-desert</pre>
+
+  <p><strong>Student B</strong>:</p>
+  <pre>git checkout conflicts-desert
+git merge conflicts-nature</pre>
+
+  <p>
+    Because both branches touch the same hotspots in different ways, both students should now experience merge conflicts on their own branch.
+  </p>
+
+  <h2>What To Do When Git Stops</h2>
+  <ol>
+    <li>Run <code>git status</code> to see which files are in conflict.</li>
+    <li>Open each conflicted file in your editor.</li>
+    <li>Look for Git markers:
+      <pre>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+your current version
+=======
+incoming branch version
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; conflicts-desert</pre>
+    </li>
+    <li>Read both sides carefully before editing.</li>
+    <li>Decide what the final version should be.</li>
+    <li>Remove the Git markers after resolving the block.</li>
+    <li>Repeat until the file is fully clean.</li>
+  </ol>
+
+  <h2>Why This Workflow Matters</h2>
+  <ul>
+    <li>Both students must read and understand the conflicting code.</li>
+    <li>Both students must decide what a clean final version should look like.</li>
+    <li>Both students practice the same problem-solving skill instead of only one student seeing the conflict.</li>
+    <li>You can compare how each student resolved the same problem and discuss their reasoning afterward.</li>
+  </ul>
+
+  <h2>How To Think About The Conflicts</h2>
+  <ul>
+    <li>Treat conflicts as two valid attempts that now need to be reconciled.</li>
+    <li>Do not resolve them line by line without understanding the surrounding code.</li>
+    <li>Read the full function or section around the conflict before deciding.</li>
+    <li>Watch for duplicate helpers, duplicate event listeners, or repeated logic.</li>
+    <li>If both sides do the same thing in different styles, choose one consistent pattern.</li>
+    <li>If you combine both sides, make sure the result is still clean and non-redundant.</li>
+  </ul>
+
+  <h2>Minor Vs Major Conflicts</h2>
+  <p><strong>Minor conflicts</strong> are simpler and usually involve comments or small structural differences.</p>
+  <p><strong>Major conflicts</strong> require more care because they involve larger blocks such as helper functions, toggles, or update logic.</p>
+  <p>
+    For the bigger conflicts, focus on intent:
+  </p>
+  <ul>
+    <li>What is this block responsible for?</li>
+    <li>How is each branch trying to structure that responsibility?</li>
+    <li>What final version would be easiest for a teammate to read and maintain?</li>
+  </ul>
+
+  <h2>Finishing The Merge</h2>
+  <p>After all conflicts are resolved:</p>
+  <pre>git add nature/index.html nature/script.js desert/index.html desert/script.js
+git commit</pre>
+
+  <p>
+    At this point, each student has a branch that contains their own work plus a resolved merge of the other branch.
+  </p>
+
+  <h2>After The Conflict Exercise</h2>
+  <ul>
+    <li>Compare the two final resolutions side by side.</li>
+    <li>Discuss whether both students kept the code coherent and free of duplication.</li>
+    <li>Review whether the final result is easy for another teammate to read.</li>
+    <li>If needed, choose one final version to merge into <code>main</code>.</li>
+  </ul>
+
+  <h2>Useful Checks Before Committing</h2>
+  <pre>git status
+rg '&lt;&lt;&lt;&lt;&lt;&lt;&lt;|=======|&gt;&gt;&gt;&gt;&gt;&gt;&gt;'</pre>
+
+  <p>
+    The search command helps confirm that no conflict markers are left behind.
+  </p>
+
+  <h2>Final Sanity Check</h2>
+  <ul>
+    <li>Open both pages in the browser after the merge.</li>
+    <li>Make sure the nature page still loads and works.</li>
+    <li>Make sure the desert page still loads and works.</li>
+    <li>Make sure the JavaScript still runs without obvious errors.</li>
+  </ul>
+
+  <h2>Mindset</h2>
+  <p>
+    Good conflict resolution is not about speed only. It is about understanding intent, keeping the result coherent,
+    and leaving the codebase in a state that another teammate can follow easily.
+  </p>
+</body>
+</html>
