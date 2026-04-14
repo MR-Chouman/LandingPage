@@ -175,13 +175,15 @@ function updateTexts(m) {
     const sectionContent = content[key][m];
     if (!sectionContent) continue;
 
-    const eyebrow = document.getElementById(eyebrowId);
-    const title = document.getElementById(titleId);
-    const body = document.getElementById(bodyId);
+    const nodes = {
+      eyebrow: document.getElementById(eyebrowId),
+      title: document.getElementById(titleId),
+      body: document.getElementById(bodyId),
+    };
 
-    if (eyebrow) eyebrow.textContent = sectionContent.eyebrow;
-    if (title) title.textContent = sectionContent.title;
-    if (body) body.textContent = sectionContent.body;
+    if (nodes.eyebrow) nodes.eyebrow.textContent = sectionContent.eyebrow;
+    if (nodes.title) nodes.title.textContent = sectionContent.title;
+    if (nodes.body) nodes.body.textContent = sectionContent.body;
   }
 }
 
