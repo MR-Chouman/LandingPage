@@ -1,6 +1,6 @@
 let mode = 'morning';
 
-/* nature branch: section copy mapped by time of day */
+/* SECTION CONTENT*/
 const content = {
   flowers: {
     morning: { eyebrow:'— Morning Ritual', title:'My darlings',         body:'I kiss every petal as the sun rises. I whisper "good morning" to each bloom and drop the clearest dew from my wings onto their leaves. They open for me — they always have.' },
@@ -24,10 +24,8 @@ const content = {
   },
 };
 
-/* nature branch: toggle swaps the full scene */
-document.getElementById('timeToggle').addEventListener('click', toggleMode);
-
-function toggleMode() {
+/* DAY / NIGHT TOGGLE*/
+document.getElementById('timeToggle').addEventListener('click', () => {
   mode = mode === 'morning' ? 'night' : 'morning';
   const isMorning = mode === 'morning';
 
@@ -156,34 +154,30 @@ function getById(id) {
 }
 
 function set(id, prop, val) {
-  const el = getById(id);
-  if (!el) return;
-  el.style[prop] = val;
+  const el = document.getElementById(id);
+  if (el) el.style[prop] = val;
 }
 function setOp(id, val) {
-  const el = getById(id);
-  if (!el) return;
-  el.style.opacity = val;
+  const el = document.getElementById(id);
+  if (el) el.style.opacity = val;
 }
 
 function updateTexts(m) {
-  const sections = [
-    { eyebrowId: 'fEyebrow', titleId: 'fTitle', bodyId: 'fBody', key: 'flowers' },
-    { eyebrowId: 'pEyebrow', titleId: 'pTitle', bodyId: 'pBody', key: 'pond' },
-    { eyebrowId: 'tEyebrow', titleId: 'tTitle', bodyId: 'tBody', key: 'trees' },
-    { eyebrowId: 'gEyebrow', titleId: 'gTitle', bodyId: 'gBody', key: 'grass' },
-    { eyebrowId: 'sEyebrow', titleId: 'sTitle', bodyId: 'sBody', key: 'sunmoon' },
+  const pairs = [
+    ['fEyebrow','fTitle','fBody','flowers'],
+    ['pEyebrow','pTitle','pBody','pond'],
+    ['tEyebrow','tTitle','tBody','trees'],
+    ['gEyebrow','gTitle','gBody','grass'],
+    ['sEyebrow','sTitle','sBody','sunmoon'],
   ];
-
-  sections.forEach(({ eyebrowId, titleId, bodyId, key }) => {
-    const sectionContent = content[key][m];
-    const eyebrow = document.getElementById(eyebrowId);
-    const title = document.getElementById(titleId);
-    const body = document.getElementById(bodyId);
-
-    if (eyebrow) eyebrow.textContent = sectionContent.eyebrow;
-    if (title) title.textContent = sectionContent.title;
-    if (body) body.textContent = sectionContent.body;
+  pairs.forEach(([e,t,b,key]) => {
+    const d = content[key][m];
+    const eEl = document.getElementById(e);
+    const tEl = document.getElementById(t);
+    const bEl = document.getElementById(b);
+    if (eEl) eEl.textContent = d.eyebrow;
+    if (tEl) tEl.textContent = d.title;
+    if (bEl) bEl.textContent = d.body;
   });
 }
 
