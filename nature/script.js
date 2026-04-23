@@ -1,6 +1,6 @@
 let mode = 'morning';
 
-/* desert branch: copy variations for the shared nature page */
+/* SECTION CONTENT*/
 const content = {
   flowers: {
     morning: { eyebrow:'— Morning Ritual', title:'My darlings',         body:'I kiss every petal as the sun rises. I whisper "good morning" to each bloom and drop the clearest dew from my wings onto their leaves. They open for me — they always have.' },
@@ -24,10 +24,8 @@ const content = {
   },
 };
 
-/* desert branch: scene toggle flips the active state */
-document.getElementById('timeToggle').addEventListener('click', toggleMode);
-
-function toggleMode() {
+/* DAY / NIGHT TOGGLE*/
+document.getElementById('timeToggle').addEventListener('click', () => {
   mode = mode === 'morning' ? 'night' : 'morning';
   const isMorning = mode === 'morning';
 
@@ -151,40 +149,36 @@ function applyNight() {
   updateTexts('night');
 }
 
+function getById(id) {
+  return document.getElementById(id);
+}
+
 function set(id, prop, val) {
-  const element = document.getElementById(id);
-  if (!element) return;
-  element.style[prop] = val;
+  const el = document.getElementById(id);
+  if (el) el.style[prop] = val;
 }
 function setOp(id, val) {
-  const element = document.getElementById(id);
-  if (!element) return;
-  element.style.opacity = val;
+  const el = document.getElementById(id);
+  if (el) el.style.opacity = val;
 }
 
 function updateTexts(m) {
-  const sections = [
-    ['flowers', 'fEyebrow', 'fTitle', 'fBody'],
-    ['pond', 'pEyebrow', 'pTitle', 'pBody'],
-    ['trees', 'tEyebrow', 'tTitle', 'tBody'],
-    ['grass', 'gEyebrow', 'gTitle', 'gBody'],
-    ['sunmoon', 'sEyebrow', 'sTitle', 'sBody'],
+  const pairs = [
+    ['fEyebrow','fTitle','fBody','flowers'],
+    ['pEyebrow','pTitle','pBody','pond'],
+    ['tEyebrow','tTitle','tBody','trees'],
+    ['gEyebrow','gTitle','gBody','grass'],
+    ['sEyebrow','sTitle','sBody','sunmoon'],
   ];
-
-  for (const [key, eyebrowId, titleId, bodyId] of sections) {
-    const sectionContent = content[key][m];
-    if (!sectionContent) continue;
-
-    const nodes = {
-      eyebrow: document.getElementById(eyebrowId),
-      title: document.getElementById(titleId),
-      body: document.getElementById(bodyId),
-    };
-
-    if (nodes.eyebrow) nodes.eyebrow.textContent = sectionContent.eyebrow;
-    if (nodes.title) nodes.title.textContent = sectionContent.title;
-    if (nodes.body) nodes.body.textContent = sectionContent.body;
-  }
+  pairs.forEach(([e,t,b,key]) => {
+    const d = content[key][m];
+    const eEl = document.getElementById(e);
+    const tEl = document.getElementById(t);
+    const bEl = document.getElementById(b);
+    if (eEl) eEl.textContent = d.eyebrow;
+    if (tEl) tEl.textContent = d.title;
+    if (bEl) bEl.textContent = d.body;
+  });
 }
 
 /* GRASS BLADES*/

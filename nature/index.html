@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 
   <script>
-    /* desert branch note: shared styling values stay inside tailwind.config */
+    /*instead of some inline styles we define them in tailwind.config */
     tailwind.config = {
       theme: {
         extend: {
@@ -82,7 +82,7 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.2); border-radius:2px; }
 
-    /* desert branch note: sections blend together without visible seams */
+    /* Sections flow into each other , no visible borders */
     .nature-section {
       margin-top: -2px;
     }
