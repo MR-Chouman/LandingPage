@@ -29,11 +29,20 @@ const content = {
 };
 
 
-document.getElementById('timeToggle').addEventListener('click', () => {
+document.getElementById('timeToggle').addEventListener('click', toggleMode);
+
+function toggleMode() {
   mode = mode === 'day' ? 'night' : 'day';
-  mode === 'day' ? applyDay() : applyNight();
-  speak(mode === 'day' ? '🏜️ She commands. The sun obeys.' : '🌙 She rules the dark. The stars bow.');
-});
+  const isDay = mode === 'day';
+
+  if (isDay) {
+    applyDay();
+  } else {
+    applyNight();
+  }
+
+  speak(isDay ? '🏜️ She commands. The sun obeys.' : '🌙 She rules the dark. The stars bow.');
+}
 
 function applyDay() {
   document.getElementById('thumb').style.cssText    = 'left:3px;background:#fb923c;box-shadow:0 0 12px rgba(255,150,0,0.9)';
